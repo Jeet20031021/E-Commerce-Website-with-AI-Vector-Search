@@ -2,6 +2,7 @@ import express from "express";
 import { client } from "./config/elasticdb.js";
 import { startDB } from "./config/mongodb.js"
 import { transporter } from "./config/mail.js";
+import { createProductDB } from "./models/product.js";
 
 
 
@@ -19,6 +20,7 @@ async function startServer(){
         console.log('Elastic db connected');
         transporter.verify();
         console.log('Mail serviced is on');
+        await createProductDB();
         app.listen(process.env.PORT);
         console.log('Server is running on port '+ process.env.PORT);
     }
