@@ -9,9 +9,13 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import { seeding } from "./seeders/adminSeeder.js";
 import cookieParser from "cookie-parser";
+import { seller_routes } from "./routes/seller_routes.js";
+import fs from "node:fs";
+import path from "node:path";
 
 
 const app = express();
+const folder = path.join(import.meta.dirname, "uploads");
 app.set('view engine', 'ejs');
 app.set('views', 'templates');
 app.use(express.json());
@@ -43,6 +47,9 @@ async function startServer(){
         console.log('Mail serviced is on');
         await createProductDB();
         // await seeding();  // This is for one time seeding 
+        if(!fs.existsSync(folder)){
+            fs.mkdirSync('uploads');
+        }
         app.listen(process.env.PORT);
         console.log('Server is running on port '+ process.env.PORT);
     }
@@ -55,3 +62,4 @@ await startServer();
 
 // Routes
 app.use("/", simple_router);
+app.use("/", seller_routes);

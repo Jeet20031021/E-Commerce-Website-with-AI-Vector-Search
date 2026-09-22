@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration | AI Vector Search E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        ai: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        }
+                    },
+                    animation: {
+                        'slide-in': 'slideIn 0.3s ease-out forwards',
+                        'fade-out': 'fadeOut 0.3s ease-in forwards',
+                    },
+                    keyframes: {
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeOut: {
+                            '0%': { opacity: '1', transform: 'translateY(0)' },
+                            '100%': { opacity: '0', transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for the form section */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        /* AI background pattern */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 antialiased selection:bg-ai-500 selection:text-white">
+
+    <div class="max-w-6xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row relative">
+        
+        <!-- Left Panel: Branding & AI Theme -->
+        <div class="hidden lg:flex lg:w-5/12 bg-gradient-to-br from-ai-950 via-ai-900 to-indigo-900 p-12 flex-col justify-between relative overflow-hidden">
+            <!-- Decorative Background Elements -->
+            <div class="absolute inset-0 bg-grid-pattern"></div>
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-ai-500 opacity-20 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl"></div>
+
+            <div class="relative z-10">
+                <!-- Logo area -->
+                <div class="flex items-center space-x-3 text-white mb-12">
+                    <div class="bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/20">
+                        <svg class="w-6 h-6 text-ai-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-wide">NexSearch AI</span>
+                </div>
+                
+                <h1 class="text-4xl font-bold text-white leading-tight mb-6">
+                    Unlock semantic discovery for your catalog.
+                </h1>
+                <p class="text-ai-100 text-base leading-relaxed mb-8 opacity-90">
+                    Join our seller network powered by advanced AI Vector Search. We map the intent behind user queries directly to your products, ensuring you never miss a sale due to keyword mismatch.
+                </p>
+
+                <!-- Value Propositions -->
+                <div class="space-y-5">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-ai-500/30 border border-ai-400">
+                                <svg class="h-4 w-4 text-ai-100" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <p class="ml-3 text-sm text-ai-50">Contextual product matching</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-ai-500/30 border border-ai-400">
+                                <svg class="h-4 w-4 text-ai-100" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <p class="ml-3 text-sm text-ai-50">Automated attribute tagging</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer graphic -->
+            <div class="relative z-10 mt-16 border-t border-white/10 pt-6">
+                <p class="text-xs text-ai-100/70">Trusted by over 50,000 next-gen merchants worldwide.</p>
+            </div>
+        </div>
+
+        <!-- Right Panel: Signup Form -->
+        <div class="w-full lg:w-7/12 p-6 sm:p-10 lg:p-12 overflow-y-auto max-h-[95vh] lg:max-h-[850px] custom-scrollbar bg-white relative">
+            
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2 tracking-tight">Create Seller Account</h2>
+                <p class="text-gray-500 text-sm">Fill in your details below to activate your intelligent storefront.</p>
+            </div>
+
+            <!-- Dynamic Alert Component (Hidden initially) -->
+            <div id="alert-box" class="hidden mb-6 p-4 rounded-xl border flex items-start justify-between shadow-sm" role="alert">
+                <div class="flex items-start">
+                    <div id="alert-icon-container" class="flex-shrink-0 mr-3 mt-0.5">
+                        <!-- SVG injected by JS -->
+                    </div>
+                    <div>
+                        <h3 id="alert-title" class="text-sm font-semibold mb-1"></h3>
+                        <p id="alert-message" class="text-sm"></p>
+                    </div>
+                </div>
+                <button type="button" id="close-alert" class="ml-4 inline-flex text-gray-400 hover:text-gray-500 focus:outline-none transition-colors">
+                    <span class="sr-only">Close</span>
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+
+            <form id="signup-form" class="space-y-10">
+                <input type="hidden" name="_token" id="_token" value="<%=token%>">
+                
+                <!-- Section 1: Personal Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center border-b border-gray-100 pb-3">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-ai-50 text-ai-600 font-semibold mr-3">1</div>
+                        <h3 class="text-lg font-semibold text-gray-800">Personal Information</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="sm:col-span-2">
+                            <label for="seller-name" class="block text-sm font-medium text-gray-700 mb-1.5">Seller / Business Name</label>
+                            <input type="text" id="seller-name" name="seller-name" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="E.g., Global Tech Store">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="seller@domain.com">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="+1 (555) 000-0000">
+                        </div>
+                        <!-- Password Input -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                    <div class="input-group relative border border-slate-300 rounded-lg transition-all duration-200 bg-slate-50 overflow-hidden flex items-center">
+                        <span class="input-icon pl-4 pr-3 text-slate-400 transition-colors duration-200">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="password" placeholder="••••••••" 
+                            class="w-full py-3 bg-transparent outline-none text-slate-700 placeholder-slate-400 text-sm">
+                        
+                        <!-- Toggle Password Visibility -->
+                        <button type="button" id="togglePassword" class="pr-4 pl-3 text-slate-400 hover:text-indigo-600 focus:outline-none transition-colors cursor-pointer">
+                            <i class="fa-regular fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">Must be at least 8 characters long.</p>
+                </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Address Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center border-b border-gray-100 pb-3">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-ai-50 text-ai-600 font-semibold mr-3">2</div>
+                        <h3 class="text-lg font-semibold text-gray-800">Address Information</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="sm:col-span-2">
+                            <label for="street" class="block text-sm font-medium text-gray-700 mb-1.5">Street Address</label>
+                            <input type="text" id="street" name="street" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="123 Innovation Drive, Suite 400">
+                        </div>
+
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-gray-700 mb-1.5">State</label>
+                            <input type="text" id="state" name="state" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="E.g., California">
+                        </div>
+
+                        <div>
+                            <label for="district" class="block text-sm font-medium text-gray-700 mb-1.5">District / City</label>
+                            <input type="text" id="district" name="district" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="E.g., San Francisco">
+                        </div>
+
+                        <div class="sm:col-span-2 lg:col-span-1">
+                            <label for="pin" class="block text-sm font-medium text-gray-700 mb-1.5">Pin / Postal Code</label>
+                            <input type="text" id="pin" name="pin" required
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ai-500 focus:border-ai-500 transition-shadow bg-gray-50 focus:bg-white"
+                                placeholder="E.g., 94103">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="submit-btn"
+                        class="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-ai-600 hover:bg-ai-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ai-600 transition-all active:scale-[0.99]">
+                        <span>Complete Registration</span>
+                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-8 text-center sm:text-left">
+                <p class="text-sm text-gray-600">
+                    Already a registered seller? 
+                    <a href="/seller/login" class="font-semibold text-ai-600 hover:text-ai-700 hover:underline transition-colors">Sign in to Dashboard</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('signup-form');
+            const alertBox = document.getElementById('alert-box');
+            const alertTitle = document.getElementById('alert-title');
+            const alertMessage = document.getElementById('alert-message');
+            const alertIconContainer = document.getElementById('alert-icon-container');
+            const closeAlertBtn = document.getElementById('close-alert');
+                        const passwordInput = document.getElementById('password');
+            const togglePasswordBtn = document.getElementById('togglePassword');
+
+             // --- Password Visibility Toggle ---
+            togglePasswordBtn.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                if (type === 'text') {
+                    toggleIcon.classList.remove('fa-eye');
+                    toggleIcon.classList.add('fa-eye-slash');
+                } else {
+                    toggleIcon.classList.remove('fa-eye-slash');
+                    toggleIcon.classList.add('fa-eye');
+                }
+            });
+
+
+            let alertTimeout;
+
+            // SVG Icons
+            const icons = {
+                success: `<svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+                error: `<svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`
+            };
+
+            // Dynamic Alert Function
+            function displayAlert(type, title, message) {
+                // Clear existing timeouts to prevent erratic behavior
+                clearTimeout(alertTimeout);
+
+                // Reset classes
+                alertBox.className = 'mb-6 p-4 rounded-xl border flex items-start justify-between shadow-sm animate-slide-in';
+                
+                if (type === 'success') {
+                    alertBox.classList.add('bg-green-50', 'border-green-200', 'text-green-800');
+                    alertIconContainer.innerHTML = icons.success;
+                } else if (type === 'error') {
+                    alertBox.classList.add('bg-red-50', 'border-red-200', 'text-red-800');
+                    alertIconContainer.innerHTML = icons.error;
+                }
+
+                alertTitle.textContent = title;
+                alertMessage.textContent = message;
+                
+                // Show alert
+                alertBox.classList.remove('hidden');
+
+                // Smooth scroll to top of form container so user sees the alert
+                document.querySelector('.custom-scrollbar').scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Auto-close success messages after 5 seconds
+                if (type === 'success') {
+                    alertTimeout = setTimeout(() => {
+                        hideAlert();
+                    }, 5000);
+                }
+            }
+
+            // Hide Alert Function
+            function hideAlert() {
+                alertBox.classList.remove('animate-slide-in');
+                alertBox.classList.add('animate-fade-out');
+                
+                setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                    alertBox.classList.remove('animate-fade-out');
+                }, 300); // match animation duration
+            }
+
+            // Close button event listener
+            closeAlertBtn.addEventListener('click', hideAlert);
+
+            // Hide alert when user starts typing again
+            form.addEventListener('input', () => {
+                if (!alertBox.classList.contains('hidden')) {
+                    hideAlert();
+                }
+            });
+
+            // Form Submission Handler
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent page reload (Wait for backend logic)
+
+                // Basic Front-End Validation
+                const requiredIds = ['seller-name', 'email', 'phone', 'street', 'state', 'district', 'pin'];
+                let isValid = true;
+                let firstInvalidField = null;
+
+                requiredIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el.value.trim()) {
+                        isValid = false;
+                        if (!firstInvalidField) firstInvalidField = el;
+                        // Add red highlight
+                        el.classList.add('border-red-400', 'ring-1', 'ring-red-400');
+                        // Remove highlight on input
+                        el.addEventListener('input', function() {
+                            this.classList.remove('border-red-400', 'ring-1', 'ring-red-400');
+                        }, { once: true });
+                    }
+                });
+
+                // Email format validation
+                const emailVal = document.getElementById('email').value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailVal && !emailRegex.test(emailVal)) {
+                    isValid = false;
+                    document.getElementById('email').classList.add('border-red-400', 'ring-1', 'ring-red-400');
+                    if (!firstInvalidField) firstInvalidField = document.getElementById('email');
+                }
+
+                if (!isValid) {
+                    displayAlert('error', 'Validation Error', 'Please check the highlighted fields and provide valid information.');
+                    if (firstInvalidField) firstInvalidField.focus();
+                    return;
+                }
+
+                // If validation passes, simulate success (Backend logic will go here)
+                // e.g., gather formData and fetch() API call.
+                
+                // Simulated Success State
+                displayAlert('success', 'Registration Initiated', 'Your details look good! Connecting to secure server...');
+                
+                // Change button state to indicate processing
+                const btn = document.getElementById('submit-btn');
+                const originalText = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...`;
+                btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+                // Form Submission Code
+                const obj = JSON.stringify({
+                    'name': document.getElementById('seller-name').value,
+                    'email': document.getElementById('email').value,
+                    'password': document.getElementById('password').value,
+                    'phone': document.getElementById('phone').value,
+                    'state': document.getElementById('state').value,
+                    'dist': document.getElementById('district').value,
+                    'street': document.getElementById('street').value,
+                    'pin': document.getElementById('pin').value,
+                });
+
+                const response = await fetch("/seller/signup/form/submit", {
+                    method: "POST",
+                    body: obj,
+                    headers: {
+                        'Content-Type': "application/json",
+                        'X-CSRF-Token': document.getElementById('_token').value,
+                    }
+                });
+                const res = await response.json();
+                if(response.ok && res.status === 'success'){
+                    displayAlert('success', 'Account Created Successfully!', 'Welcome to NexSearch AI. Redirecting to your dashboard...');
+                    setTimeout(() => {
+                    window.location.href = "/seller/login";
+                }, 1000);
+                }
+                else{
+                    displayAlert('error', "Validation Error!", res.message);
+                }
+                 
+            });
+        });
+    </script>
+</body>
+</html>

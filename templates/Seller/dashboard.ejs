@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard | LuminaCommerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for the accordion menu */
+        .submenu-transition {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .submenu-open {
+            max-height: 500px; /* Arbitrary large value to allow content to fit */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900 antialiased overflow-hidden">
+    
+    <!-- Main Flex Container (100vh) -->
+    <div class="flex h-screen w-full">
+
+        <!-- Mobile Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 hidden md:hidden transition-opacity"></div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 text-gray-300 flex flex-col transform -translate-x-full md:translate-x-0 md:static md:flex-shrink-0 transition-transform duration-300 ease-in-out h-full shadow-2xl md:shadow-none">
+            
+            <!-- Seller Profile Header -->
+            <div class="h-16 flex items-center px-6 bg-gray-950 border-b border-gray-800">
+                <div class="flex items-center space-x-3 w-full">
+                    <div class="h-8 w-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold flex-shrink-0">
+                        S
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-medium text-white truncate" title="seller@example.com"><%=name%></p>
+                        <p class="text-xs text-brand-500">Verified Seller</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 overflow-y-auto py-4">
+                <ul class="space-y-1">
+                    
+                    <!-- Add Product -->
+                    <li>
+                        <a href="/seller/dashboard/addproduct" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors group">
+                            <svg class="h-5 w-5 mr-3 text-gray-400 group-hover:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span class="font-medium">Add Product</span>
+                        </a>
+                    </li>
+
+                    <!-- Show Products -->
+                    <li>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors group">
+                            <svg class="h-5 w-5 mr-3 text-gray-400 group-hover:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                            <span class="font-medium">Show Products</span>
+                        </a>
+                    </li>
+
+                    <!-- Settings (Accordion) -->
+                    <li>
+                        <button id="settings-btn" class="w-full flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors group focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 mr-3 text-gray-400 group-hover:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span class="font-medium">Settings</span>
+                            </div>
+                            <svg id="settings-chevron" class="h-4 w-4 text-gray-400 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        
+                        <!-- Sub-menu -->
+                        <ul id="settings-submenu" class="submenu-transition bg-gray-950">
+                            <li>
+                                <a href="#" class="block pl-14 pr-6 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                                    Update Address
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block pl-14 pr-6 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                                    Change Password
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block pl-14 pr-6 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                                    Set Profile Image
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Sidebar Footer (Optional) -->
+            <div class="p-4 bg-gray-950 text-xs text-gray-500 text-center">
+                &copy; 2026 LuminaCommerce
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="flex-1 flex flex-col min-w-0 bg-gray-100">
+            
+            <!-- Top Navbar -->
+            <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0">
+                
+                <!-- Left Side: Hamburger & Brand -->
+                <div class="flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-gray-700 focus:outline-none md:hidden mr-4">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                        <span class="text-lg font-bold text-gray-900 tracking-wide hidden sm:block">LuminaCommerce</span>
+                        <span class="text-lg font-bold text-gray-900 tracking-wide sm:hidden">Lumina</span>
+                    </div>
+                </div>
+
+                <!-- Right Side: Logout Anchor -->
+                <div>
+                    <a href="/seller/logout" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-red-600 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
+                        <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+                
+                <!-- Page Header (Optional, for context) -->
+                <div class="mb-6">
+                    <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+                    <p class="text-sm text-gray-500">Welcome back to your LuminaCommerce seller portal.</p>
+                </div>
+
+                <!-- Dynamic Data Container -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-10 min-h-[400px] flex items-center justify-center border-dashed border-2">
+                    
+                    <div class="text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>
+                        <h3 class="mt-2 text-sm font-semibold text-gray-900">Dynamic Content Placeholder</h3>
+                        <p class="mt-1 text-sm text-gray-500">All dynamic data, charts, and tables will be injected here.</p>
+                    </div>
+
+                    <!-- 
+                        DEVELOPER NOTE:
+                        Inject your dynamic content (React/Angular components, Vue instances, or server-side rendered HTML) inside this div. 
+                        Remove the placeholder text and styling (border-dashed, flex-center) when integrating actual data.
+                    -->
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // DOM Elements
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            
+            const settingsBtn = document.getElementById('settings-btn');
+            const settingsSubmenu = document.getElementById('settings-submenu');
+            const settingsChevron = document.getElementById('settings-chevron');
+
+            // --- Mobile Sidebar Toggle Logic ---
+            function toggleSidebar() {
+                const isOpen = !sidebar.classList.contains('-translate-x-full');
+                
+                if (isOpen) {
+                    // Close sidebar
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden'); // Restore body scroll
+                } else {
+                    // Open sidebar
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarOverlay.classList.remove('hidden');
+                    // Prevent body scroll on mobile when sidebar is open
+                    if (window.innerWidth < 768) {
+                        document.body.classList.add('overflow-hidden'); 
+                    }
+                }
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+
+            // Close sidebar on window resize if moving to desktop view
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+
+            // --- Accordion Logic ---
+            settingsBtn.addEventListener('click', () => {
+                const isExpanded = settingsSubmenu.classList.contains('submenu-open');
+                
+                if (isExpanded) {
+                    // Close Accordion
+                    settingsSubmenu.classList.remove('submenu-open');
+                    settingsChevron.style.transform = 'rotate(0deg)';
+                } else {
+                    // Open Accordion
+                    settingsSubmenu.classList.add('submenu-open');
+                    settingsChevron.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

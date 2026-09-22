@@ -2,7 +2,7 @@ import { client } from "../config/elasticdb.js";
 
 
 async function createProductDB(){
-    const index_name = 'products';
+    const index_name = 'product';
     try{
         if(!await client.indices.exists({index: index_name})){
         await client.indices.create({
@@ -35,6 +35,9 @@ async function createProductDB(){
                     },
                     quantity: {
                         type: 'integer',
+                    },
+                    product_image: {
+                        type: 'text',
                     },
                     description_vector: {
                         type: 'dense_vector',
