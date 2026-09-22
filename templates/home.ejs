@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar hiding for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans pt-20">
+
+    <nav class="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <span class="text-2xl font-extrabold text-indigo-600 tracking-tight">E Commerce</span>
+                </div>
+                
+                <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-center">
+                    <div class="max-w-lg w-full lg:max-w-xs xl:max-w-lg flex">
+                        <input type="text" placeholder="Search for products, brands and more..." 
+                               class="w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm">
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 transition duration-150 shadow-sm flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/Signup" class="bg-gray-900 text-white font-semibold px-6 py-2 rounded-md hover:bg-gray-800 transition duration-150 shadow-md">
+                        Signup
+                    </a>
+                    <a href="/user/login" class="bg-gray-900 text-white font-semibold px-6 py-2 rounded-md hover:bg-gray-800 transition duration-150 shadow-md">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="relative w-full max-w-7xl mx-auto overflow-hidden h-64 sm:h-80 md:h-96 rounded-b-lg shadow-lg">
+        <div id="carousel-track" class="flex h-full w-full transition-transform duration-700 ease-in-out">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1200&auto=format&fit=crop" alt="Slide 1" class="w-full h-full object-cover flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop" alt="Slide 2" class="w-full h-full object-cover flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?q=80&w=1200&auto=format&fit=crop" alt="Slide 3" class="w-full h-full object-cover flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop" alt="Slide 4" class="w-full h-full object-cover flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1200&auto=format&fit=crop" alt="Slide 5" class="w-full h-full object-cover flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1555529771-835f59fc5efe?q=80&w=1200&auto=format&fit=crop" alt="Slide 6" class="w-full h-full object-cover flex-shrink-0">
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-indigo-100 inline-block pb-2">Trending Products</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            
+            <script>
+                const products = [
+                    { name: 'Wireless Headphones', price: '$199.99', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Smart Watch Series 8', price: '$399.00', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Classic Leather Bag', price: '$89.50', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Minimalist Sneakers', price: '$120.00', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Designer Sunglasses', price: '$150.00', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Mechanical Keyboard', price: '$145.99', img: 'https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Ceramic Coffee Mug', price: '$24.00', img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=400&auto=format&fit=crop' },
+                    { name: 'Premium Denim Jacket', price: '$85.00', img: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=400&auto=format&fit=crop' }
+                ];
+
+                products.forEach(product => {
+                    document.write(`
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col border border-gray-100 cursor-pointer">
+                            <div class="relative h-48 overflow-hidden group">
+                                <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute top-2 right-2 bg-white p-1.5 rounded-full shadow-md text-gray-400 hover:text-red-500 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-800 mb-1 line-clamp-1">${product.name}</h3>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400 text-sm">★★★★<span class="text-gray-300">★</span></div>
+                                        <span class="text-xs text-gray-500 ml-2">(128)</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span class="text-xl font-extrabold text-indigo-600">${product.price}</span>
+                                    <button class="bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            </script>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white pt-12 pb-8 border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <span class="text-2xl font-extrabold text-indigo-400 tracking-tight mb-4 inline-block">E Commerce</span>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Your one-stop destination for all your needs. We provide high-quality products at the best prices with fast delivery straight to your doorstep.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 uppercase tracking-wider text-gray-200">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Home</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Shop All</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Categories</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Special Offers</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 uppercase tracking-wider text-gray-200">Customer Service</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-indigo-400 transition">My Account</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Track Order</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Returns & Refunds</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 uppercase tracking-wider text-gray-200">Stay Connected</h3>
+                    <p class="text-sm text-gray-400 mb-3">Subscribe to get special offers and updates.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Email Address" class="w-full bg-gray-800 text-white px-3 py-2 rounded-l-md focus:outline-none focus:ring-1 focus:ring-indigo-500 border border-gray-700">
+                        <button class="bg-indigo-600 px-3 py-2 rounded-r-md hover:bg-indigo-700 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2026 E Commerce Inc. All rights reserved.
+                </p>
+                <div class="flex space-x-4 mt-4 md:mt-0 text-gray-400">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('carousel-track');
+            const totalImages = 6;
+            let currentIndex = 0;
+            let movingRight = true; // Tracks direction (Right-to-Left vs Left-to-Right)
+
+            setInterval(() => {
+                // Logic: slide right-to-left until the end, then bounce back left-to-right
+                if (movingRight) {
+                    currentIndex++;
+                    if (currentIndex === totalImages - 1) {
+                        movingRight = false; // Reached end, turn around
+                    }
+                } else {
+                    currentIndex--;
+                    if (currentIndex === 0) {
+                        movingRight = true; // Reached start, turn around
+                    }
+                }
+                
+                // Move the track by 100% of its width per index
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }, 3000); // 3 seconds interval
+        });
+    </script>
+
+</body>
+</html>

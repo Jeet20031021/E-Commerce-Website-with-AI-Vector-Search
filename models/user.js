@@ -18,6 +18,13 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: false,
+        set(value){
+            if(!value) return value;
+            if (value.startsWith('$2b') || value.startsWith('$2a$')){
+                return value;
+            }
+            return hashPassword(value);
+        }
     },
     googleId: {
         type: String,
@@ -47,19 +54,6 @@ const userSchema = new mongoose.Schema({
 // Index for Name field
 userSchema.index({ name: 1 });
 
-
-// Password Hashing
-userSchema.pre('save', async function(next){
-    if(this.isModified('password') && this.password){
-        this.password = await hashPassword(this.password);
-    }
-    next();
-});
-
-// Log save data
-userSchema.post('save', async function (doc) {
-    console.log(`${doc.name} is saved to Database!`);
-});
 
 // Model creation
 const User = mongoose.model("User", userSchema);
