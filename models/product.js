@@ -9,6 +9,9 @@ async function createProductDB(){
             index: index_name, 
             mappings: {
                 properties: {
+                    id: {
+                        type: 'text',
+                    },
                     product_name: {
                         type: 'text',
                         fields: {

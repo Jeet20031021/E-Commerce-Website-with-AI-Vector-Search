@@ -24,6 +24,14 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans pt-20">
 
+    <!-- Loading Spinner Overlay (Hidden by default) -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[9999] hidden flex items-center justify-center">
+        <svg class="animate-spin h-16 w-16 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    </div>
+
     <nav class="bg-white shadow-md fixed w-full top-0 left-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -33,9 +41,9 @@
                 
                 <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-center">
                     <div class="max-w-lg w-full lg:max-w-xs xl:max-w-lg flex">
-                        <input type="text" placeholder="Search for products, brands and more..." 
+                        <input type="text" id="searchInput" placeholder="Search for products, brands and more..." 
                                class="w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm">
-                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 transition duration-150 shadow-sm flex items-center justify-center">
+                        <button id="searchBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 transition duration-150 shadow-sm flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
@@ -69,47 +77,51 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-indigo-100 inline-block pb-2">Trending Products</h2>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="productCard">
             
             <script>
-                const products = [
-                    { name: 'Wireless Headphones', price: '$199.99', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Smart Watch Series 8', price: '$399.00', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Classic Leather Bag', price: '$89.50', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Minimalist Sneakers', price: '$120.00', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Designer Sunglasses', price: '$150.00', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Mechanical Keyboard', price: '$145.99', img: 'https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Ceramic Coffee Mug', price: '$24.00', img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=400&auto=format&fit=crop' },
-                    { name: 'Premium Denim Jacket', price: '$85.00', img: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=400&auto=format&fit=crop' }
-                ];
+               const products = [
+    { name: 'Wireless Headphones', price: '$199.99', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Smart Watch Series 8', price: '$399.00', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Classic Leather Bag', price: '$89.50', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Minimalist Sneakers', price: '$120.00', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Designer Sunglasses', price: '$150.00', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Mechanical Keyboard', price: '$145.99', img: 'https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Ceramic Coffee Mug', price: '$24.00', img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=400&auto=format&fit=crop' },
+    { name: 'Premium Denim Jacket', price: '$85.00', img: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=400&auto=format&fit=crop' }
+];
 
-                products.forEach(product => {
-                    document.write(`
-                        <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col border border-gray-100 cursor-pointer">
-                            <div class="relative h-48 overflow-hidden group">
-                                <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute top-2 right-2 bg-white p-1.5 rounded-full shadow-md text-gray-400 hover:text-red-500 transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col justify-between">
-                                <div>
-                                    <h3 class="text-lg font-bold text-gray-800 mb-1 line-clamp-1">${product.name}</h3>
-                                    <div class="flex items-center mb-3">
-                                        <div class="flex text-yellow-400 text-sm">★★★★<span class="text-gray-300">★</span></div>
-                                        <span class="text-xs text-gray-500 ml-2">(128)</span>
-                                    </div>
-                                </div>
-                                <div class="mt-4 flex items-center justify-between">
-                                    <span class="text-xl font-extrabold text-indigo-600">${product.price}</span>
-                                    <button class="bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">
-                                        Add to Cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `);
-                });
+products.forEach(product => {
+    document.write(`
+        <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col border border-gray-100 cursor-pointer">
+            <!-- Product Image -->
+            <div class="relative h-48 overflow-hidden group">
+                <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            
+            <div class="p-5 flex-1 flex flex-col justify-between">
+                <!-- Product Name -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2 line-clamp-1">${product.name}</h3>
+                </div>
+                
+                <!-- Price and Buttons -->
+                <div class="mt-4 flex flex-col gap-4">
+                    <span class="text-2xl font-extrabold text-indigo-600">${product.price}</span>
+                    
+                    <div class="flex gap-2 w-full">
+                        <button class="flex-1 bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white px-2 py-2 rounded-lg font-medium transition-colors duration-200 text-sm">
+                            Add to Cart
+                        </button>
+                        <button class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-2 py-2 rounded-lg font-medium transition-colors duration-200 text-sm">
+                            Buy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `);
+});
             </script>
         </div>
     </main>
@@ -192,6 +204,84 @@
                 // Move the track by 100% of its width per index
                 track.style.transform = `translateX(-${currentIndex * 100}%)`;
             }, 3000); // 3 seconds interval
+        });
+
+        function updateCard(products) {
+            const card = document.getElementById('productCard');
+
+            // 1. Changed .forEach to .map, and added a 'return' statement inside
+            const input = products.map((product) => {
+                return `
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col border border-gray-100 cursor-pointer">
+                    <!-- Product Image -->
+                    <div class="relative h-48 overflow-hidden group">
+                        <img src="/uploads/${product.url}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <!-- Product Name -->
+                        <div>
+                            <!-- 2. Changed product.name to product.product_name to match backend -->
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 line-clamp-1">${product.name}</h3>
+                        </div>
+                        
+                        <!-- Price and Buttons -->
+                        <div class="mt-4 flex flex-col gap-4">
+                            <span class="text-2xl font-extrabold text-indigo-600">$ ${product.price}</span>
+                            
+                            <div class="flex gap-2 w-full">
+                                <button class="flex-1 bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white px-2 py-2 rounded-lg font-medium transition-colors duration-200 text-sm">
+                                    Add to Cart
+                                </button>
+                                <button class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-2 py-2 rounded-lg font-medium transition-colors duration-200 text-sm">
+                                    Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            card.innerHTML = input;
+        }
+
+        document.getElementById('searchBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const input = document.getElementById('searchInput').value;
+            const loadingOverlay = document.getElementById('loadingOverlay');
+
+            if(!input){
+                // Do nothing if the search is empty
+            }
+            else{
+                // 1. Show the loading spinner
+                loadingOverlay.classList.remove('hidden');
+
+                try {
+                    const response = await fetch(`/search?search=${input}`, {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    });
+
+                    const res = await response.json();
+                    if(response.ok && res.status === 'success'){
+                        await updateCard(res.data);
+                    }
+                    else{
+                        alert('Failed due to network issues!');
+                    }
+                } catch (error) {
+                    console.error("Search Error:", error);
+                    alert('An error occurred during search.');
+                } finally {
+                    // 2. Hide the loading spinner regardless of success or failure
+                    loadingOverlay.classList.add('hidden');
+                }
+            }
         });
     </script>
 

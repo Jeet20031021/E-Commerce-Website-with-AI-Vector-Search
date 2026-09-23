@@ -16,6 +16,7 @@ import path from "node:path";
 
 const app = express();
 const folder = path.join(import.meta.dirname, "uploads");
+app.use('/uploads', express.static(path.join(import.meta.dirname, 'uploads')))
 app.set('view engine', 'ejs');
 app.set('views', 'templates');
 app.use(express.json());

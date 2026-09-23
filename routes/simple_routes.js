@@ -5,6 +5,7 @@ import { dashboardPage, loginSubmit, logoutUser, oauthLogin, submitForm } from "
 import { rule } from "../services/userFormValidationRule.js";
 import { googleClient } from "../config/google.js";
 import { loginVerify } from "../middleware/loginVerify.js";
+import { productSearch } from "../controllers/ProductController.js";
 
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.get("/auth/google/callback", oauthLogin);
 router.get("/user/dashboard", loginVerify, dashboardPage);
 router.post("/user/login/submit", loginSubmit);
 router.get("/user/logout", loginVerify, logoutUser);
+router.get("/search", productSearch);
 
 
 

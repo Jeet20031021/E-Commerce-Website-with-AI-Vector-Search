@@ -4,6 +4,9 @@ import "dotenv/config";
 import multer from "multer";
 import { csrfSync } from "csrf-sync";
 import { queue } from "../config/queue.js";
+import { client } from "../config/elasticdb.js";
+import { embedding } from "../services/embedding.js";
+import { redis } from "../config/redis.js";
 
 
 const { invalidCsrfTokenError, generateToken, csrfSynchronisedProtection } = csrfSync();
@@ -51,8 +54,67 @@ async function productSubmit(req, res){
 }
 
 
+async function productSearch(req, res){
+    const search = req.query?.search;
+    try{
+        const index_name = 'product';
+        const cache_data = await redis.get(search);
+        if(cache_data){
+            const document = JSON.parse(cache_data);
+            return res.json({
+                'status': 'success',
+                'data': document,
+            });
+        }
+
+        const query_vector = await embedding(search);
+        const products = await client.search({
+            index: index_name,
+            body:{
+                knn: {
+                    query_vector: query_vector,
+                    field: 'description_vector',
+                    k: 10,
+                    num_candidates: 30,
+                    boost: 0.4,
+                },
+                query: {
+                    multi_match: {
+                        query: search,
+                        fields: ["product_name^2", "category", "description"],
+                        boost: 0.6,
+                    }
+                }
+            }
+        });
+        let document = [];
+        products.hits.hits.map((product) => {
+            document.push({
+                'product_id': product._id,
+                'name': product._source.product_name,
+                'price': product._source.price,
+                'url': product._source.product_image,
+            });
+        });
+
+        await redis.setex(search, 60, JSON.stringify(document));
+        return res.json({
+            'status': 'success',
+            'data': document,
+        });
+    }
+    catch(err){
+        return res.json({
+            'status': 'failed',
+            'message': err.message
+        });
+    }
+}
+
+
 export {
     addProductPage,
     csrfSynchronisedProtection,
-    productSubmit
+    productSubmit,
+    productSearch,
 };

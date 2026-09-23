@@ -103,6 +103,11 @@ async function dashboardPage(req, res){
     return res.render('Seller/dashboard', { name: seller.name });
 }
 
+async function showProductPage(req, res){
+    const seller = await User.findOne({ email: req.user.email});
+    return res.render('Seller/showProduct', { name: seller.name });
+}
+
 async function logout(req, res){
     try{
         res.clearCookie("_token",{
@@ -122,4 +127,4 @@ async function logout(req, res){
 
 
 
-export { loginPage, loginSubmit, singupPage, csrfSynchronisedProtection, formSubmit, logout, dashboardPage };
+export { loginPage, loginSubmit, singupPage, csrfSynchronisedProtection, formSubmit, logout, dashboardPage, showProductPage };

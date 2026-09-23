@@ -4,7 +4,7 @@ import "dotenv/config";
 async function loginVerify(req, res, next){
     const token = req.cookies?._seller_token;
     try{
-        if(!token) return res.redirect('/user/login');
+        if(!token) return res.redirect('/seller/login');
         const decodeUser = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decodeUser;
         next();
@@ -13,7 +13,7 @@ async function loginVerify(req, res, next){
         res.clearCookie("_token", {
             httpOnly: true,
         });
-        return  res.redirect('/user/login');
+        return  res.redirect('/seller/login');
     }
     
 }
